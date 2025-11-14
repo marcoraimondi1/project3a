@@ -25,6 +25,16 @@ def filter_data_by_date(json_data, start_date, end_date):
         time_series_key = "Weekly Time Series"
     elif "Monthly Time Series" in json_data:
         time_series_key = "Monthly Time Series"
+    elif "Time Series (5min)" in json_data:
+        time_series_key = "Time Series (5min)"
+    elif "Time Series (15min)" in json_data:
+        time_series_key = "Time Series (15min)"
+    elif "Time Series (30min)" in json_data:
+        time_series_key = "Time Series (30min)"
+    elif "Time Series (60min)" in json_data:
+        time_series_key = "Time Series (60min)"
+    elif "Time Series (1min)" in json_data:
+        time_series_key = "Time Series (1min)"
 
     #Error message if no time series data is found.
     if time_series_key == None:
@@ -69,6 +79,16 @@ def print_data_filtered(data_filtered):
         time_series_key = "Weekly Time Series"
     elif "Monthly Time Series" in data_filtered:
         time_series_key = "Monthly Time Series"
+    elif "Time Series (5min)" in data_filtered:
+        time_series_key = "Time Series (5min)"
+    elif "Time Series (15min)" in data_filtered:
+        time_series_key = "Time Series (15min)"
+    elif "Time Series (30min)" in data_filtered:
+        time_series_key = "Time Series (30min)"
+    elif "Time Series (60min)" in data_filtered:
+        time_series_key = "Time Series (60min)"
+    elif "Time Series (1min)" in data_filtered:
+        time_series_key = "Time Series (1min)"
 
     if time_series_key == None:
         print("Error: No time series data found in filtered data")

@@ -56,8 +56,11 @@ def userinput():
 getInput = userinput()
 intervals = ["TIME_SERIES_INTRADAY", "TIME_SERIES_DAILY", "TIME_SERIES_WEEKLY", "TIME_SERIES_MONTHLY"]
 
-stock_data = makeRequest(intervals[int(getInput["time_choice"])-1], getInput["symbol"], 'demo', getInput['start_date'], getInput['end_date'])
+stock_data = makeRequest(intervals[int(getInput["time_choice"])-1], getInput["symbol"], '1L6IIQFIPW0YRYPC', getInput['start_date'], getInput['end_date'])
 print(stock_data)
+if stock_data is None:
+    print("Failed to retrieve stock data ")
+    exit(1)
 key = list(stock_data.keys())[1]
 dates = stock_data[key].keys()
 open_values = []
