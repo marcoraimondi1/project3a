@@ -1,23 +1,40 @@
 import requests
-from date_filter import filter_data_by_date, print_data_filtered
+from date_filter import filter_data_by_date
 
-def makeRequest(func : str,  symbol : str, apikey : str, start_date : str, end_date : str):
-    '''Func: TIME_SERIES_MONTHLY, TIME_SERIES_INTRADAY, TIME_SERIES_DAILY, TIME_SERIES_WEEKLY
-    Symbol: Stock Symbol
-    Apikey: String from site
-    Start_date & End_date: yyyy-mm-dd'''
-    #get url
-    url = 'https://www.alphavantage.co/query?function=' + func + '&symbol=' + symbol + '&apikey=' + apikey
 
-    #make a request to that url to get the json
-    r = requests.get(url)
+def makeRequest(
+    func: str,
+    symbol: str,
+    apikey: str,
+    start_date: str,
+    end_date: str,
+    interval: str | None = None,
+):
+    """Fetch stock data from AlphaVantage.
 
-    #use .json() on the request. This changes it to a dictionary that python can use.
-    data = r.json()
+    Args:
+        func: One of TIME_SERIES_MONTHLY, TIME_SERIES_INTRADAY, TIME_SERIES_DAILY, TIME_SERIES_WEEKLY.
+        symbol: The stock ticker symbol.
+        apikey: AlphaVantage API key.
+        start_date: Beginning of the requested window (YYYY-MM-DD).
+        end_date: End of the requested window (YYYY-MM-DD).
+        interval: Required for intraday queries (1min, 5min, 15min, 30min, 60min).
+    """
 
-    filterered_data = filter_data_by_date(data, start_date, end_date)
+    params = {
+        "function": func,
+        "symbol": symbol,
+        "apikey": apikey,
+    }
 
-    return filterered_data
+    if interval:
+        params["interval"] = interval
+
+    response = requests.get("https://www.alphavantage.co/query", params=params, timeout=30)
+    response.raise_for_status()
+    data = response.json()
+
+    return filter_data_by_date(data, start_date, end_date)
 
 
 # To test the function (If you try to test daily further then 100 days ago it wont let you and will come back with a error)

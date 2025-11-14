@@ -1,6 +1,6 @@
 from datetime import datetime
 
-API_KEY = "KST2CQHMXDNNVQAX"
+API_KEY = "1L6IIQFIPW0YRYPC"
 
 def filter_data_by_date(json_data, start_date, end_date):
     # Checking if the dates are correctly inputted in the right order
